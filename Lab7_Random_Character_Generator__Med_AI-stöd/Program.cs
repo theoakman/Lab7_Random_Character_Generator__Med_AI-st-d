@@ -95,7 +95,6 @@ namespace Lab7_Random_Character_Generator__Med_AI_stöd
             Console.Clear();
 
             Console.WriteLine("Dina karaktärer");
-            Console.WriteLine("-------------------------------------------");
 
             foreach (var character in myCharacters)
             {
