@@ -124,51 +124,74 @@ namespace Lab7_Random_Character_Generator__Med_AI_stöd
         public static void DeleteCharacter(List<Character> myCharacters)
         {
             Console.Clear();
-
-            if (myCharacters.Count < 1) // Checks if there are any character in the list
+            bool isdeleteing = true;
+            while (isdeleteing)
             {
-                Console.WriteLine("Det finns inga karatärer att radera...");
-            }
-            else
-            { 
 
-                int i = 1;
-
-                Console.WriteLine("Vem vill du radera?");
-                Console.WriteLine("Skriv in motsvarande nummer och tryck enter");
-
-                foreach (var character in myCharacters)
+                if (myCharacters.Count < 1) // Checks if there are any character in the list
                 {
-                    Console.WriteLine($"{i}. {character.Name}");
-                    i++;
+                    Console.WriteLine("Det finns inga karatärer att radera...");
+                    Console.WriteLine("Tryck på en knapp för att gå tillbaka till huvudmenyn");
+                    Console.ReadKey();
+                    break;
                 }
+                else // if there are characters in the list the menu for deletion will pop up
+                {
 
+                    int i = 1;
 
-                if (int.TryParse(Console.ReadLine(), out int choice))
-                { // User has typed a valid number
+                    Console.WriteLine("Vem vill du radera?");
+                    Console.WriteLine("Skriv in motsvarande nummer och tryck enter");
+                    Console.WriteLine("Skriv 0 för att gå tillbaka till huvudmenyn");
 
-                    if (choice >= 1 && choice <= myCharacters.Count) 
+                    // Displays all the created characters names in a list with a coresponding number
+                    foreach (var character in myCharacters)
                     {
-                        string deletedName = myCharacters[choice - 1].Name;
+                        Console.WriteLine($"{i}. {character.Name}");
+                        i++;
+                    }
 
-                        myCharacters.RemoveAt(choice - 1);
+                    // Deletes a the character from the list when writing their displayed number.
+                    // The user input get converted to the correct Chracter list index and then removes that character from the list.
+                    // If the input dosent match a coresponding character the program will notify that
+                    // When the user input is 0 this method will end
 
-                        Console.WriteLine($"{deletedName} has beem deleted...");
+                    if (int.TryParse(Console.ReadLine(), out int choice))
+                    { // User has typed a valid number
+
+                        if (choice == 0)
+                        {
+                            isdeleteing = false;
+                        }
+                        
+                        else if (choice >= 1 && choice <= myCharacters.Count)
+                        {
+                            string deletedName = myCharacters[choice - 1].Name;
+
+                            myCharacters.RemoveAt(choice - 1);
+
+                            Console.WriteLine($"{deletedName} har raderats...");
+                            Console.WriteLine("Tryck på en knapp för att fortsätta");
+                            Console.ReadKey();
+                            Console.Clear();
+
+                        }
+
+                        else
+                        {
+                            Console.WriteLine("Det finns inte en karatär under det nummeret...");
+                        }
 
                     }
+
+                    else
+                    { // User has typed a invalid input
+                        Console.WriteLine("Du måste skriva ett nummer!");
+                    }
+
                 }
-
-                else
-                { // User has typed a invalid input
-                    Console.WriteLine("Du måste skriva ett nummer!");
-                }
-
-
             }
-            Console.WriteLine("Tryck på kanpp för att gå tillbaka");
-            Console.ReadKey();
             Console.Clear();
-
         }
 
 
