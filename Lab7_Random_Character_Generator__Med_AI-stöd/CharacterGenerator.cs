@@ -10,7 +10,7 @@ namespace Lab7_Random_Character_Generator__Med_AI_stöd
 
 
         // Posible character names, classes, and abilities
-        private string[] names = { "Eero Tonitucoor", "Nonsum Homo", "Kronk", "Euranya Atvash", "Lorezeion", "Amin Bidibamin", "Mina Badabina" };
+        private string[] names = { "Eero Tonitucoor", "Nonsum Homo", "Kronk", "Euranya Atvash", "Lorezeion", "Amin Bidibamin", "Mina Badabina", "Abe", "Henry", "John Humanman", "Kevin" };
         private string[] classes = { "Warrior", "Mage", "Rogue", "Archer", "Paladin" };
         private string[] abilities = { "Berserk", "Fireball", "Stealth", "Divine Smite", "Shapeshift", "Warp", "Healing", "Polearm Mastery", "Lockpicking" };
 
@@ -26,7 +26,10 @@ namespace Lab7_Random_Character_Generator__Med_AI_stöd
             int agility;
             int health;
 
-            // Generateted with AI after first case
+            // The switch case makes sure that once a class has been generated the possible 
+            // stats and abilities are limited to a set range and set of options
+
+            // Generateted with AI after first case (Except for the ability names:))
             switch (characterClass)
             {
                 case "Warrior":
@@ -74,10 +77,10 @@ namespace Lab7_Random_Character_Generator__Med_AI_stöd
                 default:
                     throw new InvalidOperationException("Unknown character class.");
             }
-
+            // assigns the ability from the previous possibleAbilities array
             string specialAbility = possibleAbilities[random.Next(possibleAbilities.Length)];
 
-
+            // Constuctor for the new character onece everything has been generated
             Character newCharacter = new Character(
                 name,
                 characterClass, 
