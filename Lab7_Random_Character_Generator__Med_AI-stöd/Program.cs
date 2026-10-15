@@ -1,10 +1,12 @@
-﻿namespace Lab7_Random_Character_Generator__Med_AI_stöd
+﻿using Microsoft.VisualBasic;
+
+namespace Lab7_Random_Character_Generator__Med_AI_stöd
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            List<Character> MyCharacters = new List<Character>();
+            List<Character> myCharacters = new List<Character>();
             var Generator = new CharacterGenerator();
 
             bool isRunning = true;
@@ -31,7 +33,7 @@
                         Console.WriteLine($"Ability: {newCharacter.SpecialAbility}");
                         Console.WriteLine($"Health: {newCharacter.Health} Strength:\t{newCharacter.Strength}\tAgility: {newCharacter.Agility}");
 
-                        MyCharacters.Add(newCharacter);
+                        myCharacters.Add(newCharacter);
 
                         Console.WriteLine("Tryck på kanpp för att gå tillbaka");
                         Console.ReadKey();
@@ -40,7 +42,9 @@
                         break;
 
                     case ("2"):
-                        Console.WriteLine("Visar karaktärer");
+
+                        DisplayCharacters(myCharacters);
+
                         break;
 
                     case("0"):
@@ -48,30 +52,13 @@
                         break;
 
                     default:
+                        Console.Clear();
                         Console.WriteLine("Felaktig input");
+
                         break;
 
                 }
-              
-
             }
-
-
-
-
-
-
-
-            //CharacterGenerator generator = new CharacterGenerator();
-
-            //Character myCharacter = generator.GenerateCharacter();
-
-            //Console.WriteLine($"Name: {myCharacter.Name}");
-            //Console.WriteLine($"Class: {myCharacter.CharacterClass}");
-            //Console.WriteLine($"Strength: {myCharacter.Strength}");
-            //Console.WriteLine($"Agilty: {myCharacter.Agility}");
-            //Console.WriteLine($"Ability: {myCharacter.SpecialAbility}");
-
         }
 
         public static void DisplayMenu()
@@ -85,6 +72,27 @@
             Console.WriteLine("1. Generera karaktär");
             Console.WriteLine("2. Visa karaktärerer");
             Console.WriteLine("0. Avsluta program");
+        }
+
+        public static void DisplayCharacters(List<Character> myCharacters)
+        {
+            Console.Clear();
+
+            Console.WriteLine("Dina karaktärer");
+
+            foreach (var character in myCharacters)
+            {
+                Console.WriteLine("-------------------------------------------");
+                Console.WriteLine($"Name: {character.Name}");
+                Console.WriteLine($"Class: {character.CharacterClass}");
+                Console.WriteLine($"Ability: {character.SpecialAbility}");
+                Console.WriteLine($"Stats\nHealth: {character.Health}\tStrength:{character.Strength}\tAgility: {character.Agility}");
+                Console.WriteLine("-------------------------------------------");
+            }
+
+            Console.WriteLine("Tryck på kanpp för att gå tillbaka");
+            Console.ReadKey();
+            Console.Clear();
         }
 
     }
