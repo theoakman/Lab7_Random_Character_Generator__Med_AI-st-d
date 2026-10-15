@@ -149,7 +149,12 @@ namespace Lab7_Random_Character_Generator__Med_AI_stöd
 
                     if (choice >= 1 && choice <= myCharacters.Count) 
                     {
-                        
+                        string deletedName = myCharacters[choice - 1].Name;
+
+                        myCharacters.RemoveAt(choice - 1);
+
+                        Console.WriteLine($"{deletedName} has beem deleted...");
+
                     }
                 }
 
