@@ -10,14 +10,14 @@ namespace Lab7_Random_Character_Generator__Med_AI_stöd
             List<Character> myCharacters = new List<Character>();
             var Generator = new CharacterGenerator();
 
-            bool isRunning = true;
+            bool isRunning = true; // if this becomes false the program ends
             while (isRunning)
             {
 
                 DisplayMenu();
                 
 
-                string userInput = Console.ReadLine();
+                string? userInput = Console.ReadLine();
 
 
                 switch (userInput)
@@ -35,10 +35,13 @@ namespace Lab7_Random_Character_Generator__Med_AI_stöd
                         break;
 
                     case("0"):
+
                         isRunning = false;
+
                         break;
 
                     default:
+
                         Console.Clear();
                         Console.WriteLine("Felaktig input");
 
