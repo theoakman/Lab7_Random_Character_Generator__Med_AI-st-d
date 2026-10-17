@@ -1,21 +1,18 @@
-﻿using Microsoft.VisualBasic;
-using System.Reflection.Emit;
-
-namespace Lab7_Random_Character_Generator__Med_AI_stöd
+﻿namespace Lab7_Random_Character_Generator__Med_AI_stöd
 {
     internal class Program
     {
         static void Main(string[] args)
         {
             List<Character> myCharacters = new List<Character>();
-            var Generator = new CharacterGenerator();
+            var generator = new CharacterGenerator();
 
             bool isRunning = true; // if this becomes false the program ends
             while (isRunning)
             {
 
                 DisplayMenu();
-                
+
 
                 string? userInput = Console.ReadLine();
 
@@ -24,7 +21,7 @@ namespace Lab7_Random_Character_Generator__Med_AI_stöd
                 {
                     case ("1"):
 
-                        CreateCharacter(Generator, myCharacters);
+                        CreateCharacter(generator, myCharacters);
 
                         break;
 
@@ -40,7 +37,7 @@ namespace Lab7_Random_Character_Generator__Med_AI_stöd
 
                         break;
 
-                    case("0"):
+                    case ("0"):
 
                         isRunning = false;
 
@@ -77,7 +74,7 @@ namespace Lab7_Random_Character_Generator__Med_AI_stöd
 
 
         }
-        public static void CreateCharacter(CharacterGenerator Generator, List<Character> myCharacters)
+        public static void CreateCharacter(CharacterGenerator generator, List<Character> myCharacters)
         {
 
             // Generates new characters thro the CharacterGenerator class and adds then
@@ -86,7 +83,7 @@ namespace Lab7_Random_Character_Generator__Med_AI_stöd
 
             Console.WriteLine("Genererar en karaktär...");
 
-            Character newCharacter = Generator.GenerateCharacter();
+            Character newCharacter = generator.GenerateCharacter();
 
             Console.WriteLine($"Name: {newCharacter.Name}");
             Console.WriteLine($"Class: {newCharacter.CharacterClass}");
@@ -95,48 +92,65 @@ namespace Lab7_Random_Character_Generator__Med_AI_stöd
 
             myCharacters.Add(newCharacter);
 
-            Console.WriteLine("Tryck på kanpp för att gå tillbaka");
+            Console.WriteLine("Tryck på knapp för att gå tillbaka");
             Console.ReadKey();
             Console.Clear();
         }
         public static void DisplayCharacters(List<Character> myCharacters)
         {
-            // Will display a list of all the currently generated characters that have been generated in the Create Character option
             Console.Clear();
 
-            Console.WriteLine("Dina karaktärer");
-
-            foreach (var character in myCharacters)
+            if (myCharacters.Count == 0)
             {
-                Console.WriteLine("-------------------------------------------");
-                Console.WriteLine($"Name: {character.Name}");
-                Console.WriteLine($"Class: {character.CharacterClass}");
-                Console.WriteLine($"Ability: {character.SpecialAbility}");
-                Console.WriteLine($"Stats\nHealth: {character.Health}\tStrength:{character.Strength}\tAgility: {character.Agility}");
-                Console.WriteLine("-------------------------------------------");
+
+                Console.WriteLine("Du har inga sparade karaktärer.");
+
+            }
+            else
+            {
+
+
+                // Will display a list of all the currently generated characters that have been generated in the Create Character option
+
+                Console.WriteLine("Dina karaktärer");
+
+                foreach (var character in myCharacters)
+                {
+                    Console.WriteLine("-------------------------------------------");
+                    Console.WriteLine($"Name: {character.Name}");
+                    Console.WriteLine($"Class: {character.CharacterClass}");
+                    Console.WriteLine($"Ability: {character.SpecialAbility}");
+                    Console.WriteLine($"Stats\nHealth: {character.Health}\tStrength:{character.Strength}\tAgility: {character.Agility}");
+                    Console.WriteLine("-------------------------------------------");
+                }
+
+                Console.WriteLine("Tryck på kanpp för att gå tillbaka");
+                Console.ReadKey();
+                Console.Clear();
             }
 
-            Console.WriteLine("Tryck på kanpp för att gå tillbaka");
-            Console.ReadKey();
-            Console.Clear();
         }
 
         public static void DeleteCharacter(List<Character> myCharacters)
         {
+            // AI suggested TryParse() and RemoveAt().
+            // I added a while loop to allow multiple deletions
+            // and an option to return to the main menu.
             Console.Clear();
-            bool isdeleteing = true;
-            while (isdeleteing)
+
+            if (myCharacters.Count == 0)
             {
 
-                if (myCharacters.Count < 1) // Checks if there are any character in the list
+                Console.WriteLine("Det finns inga karaktärer att radera...");
+
+            }
+
+            else // if there are characters in the list the menu for deletion will pop up
+            {
+                bool isDeleting = true;
+                while (isDeleting)
                 {
-                    Console.WriteLine("Det finns inga karatärer att radera...");
-                    Console.WriteLine("Tryck på en knapp för att gå tillbaka till huvudmenyn");
-                    Console.ReadKey();
-                    break;
-                }
-                else // if there are characters in the list the menu for deletion will pop up
-                {
+                    Console.Clear();
 
                     int i = 1;
 
@@ -161,9 +175,9 @@ namespace Lab7_Random_Character_Generator__Med_AI_stöd
 
                         if (choice == 0)
                         {
-                            isdeleteing = false;
+                            isDeleting = false;
                         }
-                        
+
                         else if (choice >= 1 && choice <= myCharacters.Count)
                         {
                             string deletedName = myCharacters[choice - 1].Name;
@@ -172,14 +186,30 @@ namespace Lab7_Random_Character_Generator__Med_AI_stöd
 
                             Console.WriteLine($"{deletedName} har raderats...");
                             Console.WriteLine("Tryck på en knapp för att fortsätta");
-                            Console.ReadKey();
-                            Console.Clear();
+                            if (myCharacters.Count != 0)
+                            {
+                                Console.ReadKey();
+                                Console.Clear();
+                            }
+
+
+                            if (myCharacters.Count == 0)
+                            {
+                                Console.WriteLine("\nDet finns inga karaktärer kvar");
+                                Console.WriteLine("Tryck på en knapp för att gå tillbaka till huvudmenyn");
+                                Console.ReadKey();
+                                Console.Clear();
+                                isDeleting = false;
+                            }
 
                         }
 
                         else
                         {
-                            Console.WriteLine("Det finns inte en karatär under det nummeret...");
+                            Console.WriteLine("Det finns ingen karaktär under det nummeret...");
+                            Console.WriteLine("Tryck på en knapp för att fortsätta");
+                            Console.ReadKey();
+                            Console.Clear();
                         }
 
                     }
@@ -187,11 +217,16 @@ namespace Lab7_Random_Character_Generator__Med_AI_stöd
                     else
                     { // User has typed a invalid input
                         Console.WriteLine("Du måste skriva ett nummer!");
+                        Console.WriteLine("Tryck på en knapp för att fortsätta");
+                        Console.ReadKey();
+                        Console.Clear();
+
                     }
 
                 }
+                Console.Clear();
+
             }
-            Console.Clear();
         }
 
 

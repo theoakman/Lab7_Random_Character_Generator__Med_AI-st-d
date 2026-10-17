@@ -9,12 +9,10 @@ namespace Lab7_Random_Character_Generator__Med_AI_stöd
         private readonly Random random = new Random();
 
 
-        // Posible character names, classes, and abilities
+        // Posible character names and classes
         private string[] names = { "Eero Tonitucoor", "Nonsum Homo", "Kronk", "Euranya Atvash", "Lorezeion", "Amin Bidibamin", "Mina Badabina", "Abe", "Henry", "John Humanman", "Kevin" };
         private string[] classes = { "Warrior", "Mage", "Rogue", "Archer", "Paladin" };
-        private string[] abilities = { "Berserk", "Fireball", "Stealth", "Divine Smite", "Shapeshift", "Warp", "Healing", "Polearm Mastery", "Lockpicking" };
 
-    
 
     public Character GenerateCharacter()
         {
@@ -62,16 +60,14 @@ namespace Lab7_Random_Character_Generator__Med_AI_stöd
                     strength = random.Next(8, 15);
                     agility = random.Next(14, 21);
                     health = random.Next(80, 111);
-                    possibleAbilities = new string[] { "Snipier", "Magic Arrows" }
-                    ;
+                    possibleAbilities = new string[] { "Sniper", "Magic Arrows" };
                     break;
 
                 case "Paladin":
                     strength = random.Next(12, 19);
                     agility = random.Next(5, 11);
                     health = random.Next(120, 151);
-                    possibleAbilities = new string[] { "Healing", "Divine Smite" }
-                    ;
+                    possibleAbilities = new string[] { "Healing", "Divine Smite" };
                     break;
 
                 default:
